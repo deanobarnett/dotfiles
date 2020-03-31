@@ -1,9 +1,18 @@
 # Unix
-alias ll="ls -al"
+alias l="ls -al"
 alias ln="ln -v"
 alias mkdir="mkdir -p"
 alias e="$EDITOR"
 alias v="$VISUAL"
+alias c="cd"
+alias dev="cd ~/Developer/src"
+
+# Git
+alias gl="git log --all --decorate --oneline --graph -10"
+alias gaa="git add --all"
+alias gco="git checkout"
+alias gd="git diff"
+alias gdc="git diff --cached"
 
 # Bundler
 alias b="bundle"
