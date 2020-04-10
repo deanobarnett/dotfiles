@@ -1,0 +1,4 @@
+#!/bin/sh
+
+location="~/audio/inbox/%(title)s.%(ext)s"
+youtube-dl -x --audio-format mp3 -o $location $(pbpaste) --restrict-filenames

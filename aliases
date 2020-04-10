@@ -1,9 +1,10 @@
 # Unix
+alias cat="bat"
+alias ls="exa"
 alias l="ls -al"
 alias ln="ln -v"
 alias mkdir="mkdir -p"
-alias e="$EDITOR"
-alias v="$VISUAL"
+alias v="nvim"
 alias c="cd"
 alias dev="cd ~/Developer/src"
 
@@ -13,12 +14,10 @@ alias gaa="git add --all"
 alias gco="git checkout"
 alias gd="git diff"
 alias gdc="git diff --cached"
+alias gcm="git commit -v"
 
-# Bundler
+# Ruby
 alias b="bundle"
-
-# Rails
-alias migrate="rake db:migrate db:rollback && rake db:migrate db:test:prepare"
 alias s="rspec"
 
 # Pretty print the path

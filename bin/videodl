@@ -1,0 +1,4 @@
+#!/bin/sh
+
+location="~/videos/inbox/%(title)s.%(ext)s"
+youtube-dl -o $location $(pbpaste) --restrict-filenames

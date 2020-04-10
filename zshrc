@@ -34,6 +34,10 @@ _load_settings() {
 }
 _load_settings "$HOME/.zsh/configs"
 
+export GOPATH=/Users/dean/Developer
+export PATH=$PATH:$GOPATH/bin
+
+
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 setopt autocd
@@ -42,6 +46,3 @@ setopt autocd
 [[ -f ~/.aliases ]] && source ~/.aliases
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-GOPATH=/Users/dean/Developer
-GOROOT=/usr/local/opt/go/libexec

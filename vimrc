@@ -1,7 +1,7 @@
 set encoding=utf-8
 
 " Leader
-let mapleader = " "
+let mapleader = ","
 
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
@@ -164,6 +164,14 @@ nnoremap [r :ALEPreviousWrap<CR>
 
 " Map Ctrl + p to open fuzzy find (FZF)
 nnoremap <c-p> :Files<cr>
+
+" Save and quit
+nnoremap <c-s> <esc>:w<cr>
+inoremap <c-s> <esc>:w<cr>
+nnoremap <c-x> <esc>:q<cr>
+
+nnoremap <leader>e <esc>:E<cr>
+nnoremap <leader>v <esc>:vsplit<cr>
 
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
