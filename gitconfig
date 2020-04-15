@@ -27,5 +27,9 @@
   path = ~/.gitconfig.local
 [diff]
   colorMoved = zebra
+[github]
+  user = deanobarnett
 [user]
-	name = Dean Barnett
+  name = Dean Barnett
+  email = github@deano.io
+  signingkey = 2AE916057BAAF1EE
