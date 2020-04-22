@@ -36,7 +36,7 @@ _load_settings "$HOME/.zsh/configs"
 
 export GOPATH=/Users/dean/Developer
 export PATH=$PATH:$GOPATH/bin
-
+export GPG_TTY=$(tty)
 
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
