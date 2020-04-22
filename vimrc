@@ -170,6 +170,9 @@ nnoremap <c-s> <esc>:w<cr>
 inoremap <c-s> <esc>:w<cr>
 nnoremap <c-x> <esc>:q<cr>
 
+" Copy to clipboard
+map <leader>y "*y
+
 nnoremap <leader>e <esc>:E<cr>
 nnoremap <leader>v <esc>:vsplit<cr>
 
