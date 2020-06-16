@@ -15,6 +15,15 @@ set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
 set modelines=0   " Disable modelines as a security precaution
 set nomodeline
+set clipboard=unnamed
+
+" Match case only when supplied
+set ignorecase
+set smartcase
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -132,6 +141,10 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
+" Move to wrapped lines
+nnoremap j gj
+nnoremap k gk
+
 " vim-test mappings
 nnoremap <silent> <Leader>t :TestFile<CR>
 nnoremap <silent> <Leader>s :TestNearest<CR>
@@ -141,6 +154,9 @@ nnoremap <silent> <Leader>gt :TestVisit<CR>
 
 " Run commands that require an interactive shell
 nnoremap <Leader>r :RunInInteractiveShell<Space>
+
+" Go error check
+nnoremap <Leader><cr> :GoErrCheck<cr>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -166,6 +182,9 @@ nnoremap [r :ALEPreviousWrap<CR>
 nnoremap <c-p> :Files<cr>
 
 " Save and quit
+imap <c-s> <esc>:w<cr>
+vmap <c-s> <esc>:w<cr>
+nmap <c-s> <esc>:w<cr>
 nnoremap <c-s> <esc>:w<cr>
 inoremap <c-s> <esc>:w<cr>
 nnoremap <c-x> <esc>:q<cr>
@@ -187,6 +206,14 @@ set complete+=kspell
 " set diffopt+=vertical
 
 " Local config
+
+" copy paste
+map <leader>y "*y
+map <Leader>p :set paste<CR><esc>"*]p:set nopaste<cr>
+
+" Golang
+let g:go_fmt_command = "goimports"
+
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif

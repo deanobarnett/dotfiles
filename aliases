@@ -5,10 +5,10 @@ alias ln="ln -v"
 alias mkdir="mkdir -p"
 alias v="nvim"
 alias c="cd"
-alias dev="cd ~/Developer/src"
+alias dev="cd ~/Developer/src/github.com"
 
 # Git
-alias gl="git log --all --decorate --oneline --graph -10"
+alias gl="git log --decorate --oneline --graph -10"
 alias gaa="git add --all"
 alias gco="git checkout"
 alias gd="git diff"
@@ -16,6 +16,7 @@ alias gdc="git diff --cached"
 alias gcm="git commit -vS"
 alias gp="git push"
 alias gpf="git push -f"
+alias pull-master="git pull --rebase origin master"
 
 # Ruby
 alias b="bundle"

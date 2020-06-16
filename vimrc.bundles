@@ -25,24 +25,33 @@ else
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 endif
 
-Plug 'junegunn/fzf.vim'
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb' " Github commands
+
+" Languages
 Plug 'elixir-lang/vim-elixir'
 Plug 'fatih/vim-go'
-Plug 'janko-m/vim-test'
 Plug 'pangloss/vim-javascript'
-Plug 'pbrisbin/vim-mkdir'
 Plug 'slim-template/vim-slim'
+Plug 'vim-ruby/vim-ruby'
+
+" Rails
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
+
+" Utilities
+Plug 'janko-m/vim-test'
+Plug 'junegunn/fzf.vim' " Useful vim commands
+Plug 'pbrisbin/vim-mkdir'
+Plug 'tpope/vim-eunuch' " Shell commands
+Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
-Plug 'vim-ruby/vim-ruby'
+Plug 'unblevable/quick-scope' " Jump to words faster
 Plug 'vim-scripts/tComment'
 Plug 'evanleck/vim-svelte'
 
