@@ -19,7 +19,7 @@
   ff = only
 [commit]
   template = ~/.gitmessage
-	gpgsign = true
+  gpgsign = true
 [fetch]
   prune = true
 [rebase]
@@ -34,9 +34,11 @@
   helper = osxkeychain
 [user]
   name = Dean Barnett
-  signingkey = 23AFDE00A5CE6EB6
-  email = dean.barnett@teamwork.com
+  signingkey = 45DAB422C0608F1B
+  email = dean@rotorvideos.com
 [url "git@github.com:"]
   insteadOf = https://github.com/
 [gpg]
-	program = gpg2
+  program = gpg
+[pull]
+	ff = only

@@ -146,6 +146,7 @@ nnoremap j gj
 nnoremap k gk
 
 " vim-test mappings
+let test#strategy = "dispatch"
 nnoremap <silent> <Leader>t :TestFile<CR>
 nnoremap <silent> <Leader>s :TestNearest<CR>
 nnoremap <silent> <Leader>l :TestLast<CR>
@@ -192,8 +193,8 @@ nnoremap <c-x> <esc>:q<cr>
 " Copy to clipboard
 map <leader>y "*y
 
-nnoremap <leader>e <esc>:E<cr>
-nnoremap <leader>v <esc>:vsplit<cr>
+nnoremap <leader>e <esc>:e %:h<cr>
+nnoremap <leader>v <esc>:Vex<cr>
 
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.

@@ -33,6 +33,7 @@ Plug 'tpope/vim-rhubarb' " Github commands
 " Languages
 Plug 'elixir-lang/vim-elixir'
 Plug 'fatih/vim-go'
+Plug 'kchmck/vim-coffee-script'
 Plug 'pangloss/vim-javascript'
 Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
@@ -45,6 +46,7 @@ Plug 'tpope/vim-rake'
 
 " Utilities
 Plug 'janko-m/vim-test'
+Plug 'tpope/vim-dispatch'
 Plug 'junegunn/fzf.vim' " Useful vim commands
 Plug 'pbrisbin/vim-mkdir'
 Plug 'tpope/vim-eunuch' " Shell commands
