@@ -3,6 +3,12 @@ set encoding=utf-8
 " Leader
 let mapleader = ","
 
+" Minimal setip
+set ai nocp digraph hid ru sc vb wmnu noeb noet nosol
+set bs=2 fo=cqrt ls=2 shm=at tw=72 ww=<,>,h,l 
+set comments=b:#,:%,n:>
+set list listchars=tab:»·,trail:·
+
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
 set nowritebackup
@@ -11,7 +17,6 @@ set history=50
 set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
-set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
 set modelines=0   " Disable modelines as a security precaution
 set nomodeline
@@ -25,11 +30,50 @@ set smartcase
 set splitbelow
 set splitright
 
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-  syntax on
-endif
+" Status line colors
+hi User1 ctermbg=darkgrey ctermfg=green guibg=darkgrey guifg=green
+hi User2 ctermbg=lightyellow ctermfg=black guibg=lƣghtyellow guifg=black
+hi User3 ctermbg=darkgrey ctermfg=darkred guibg=darkgrey guifg=darkred
+hi User9 ctermbg=darkgrey ctermfg=white guibg=darkgrey guifg=white
+
+" Left-justified
+set laststatus=2  " Always display the status line
+set statusline=
+set statusline+=%1*\ \ %{b:gitbranch}%9* "Git branch
+set statusline+=%{expand('%:~:.')}\  " Relative file path
+set statusline+=%3*%r%m%9* " Read-only, modified
+
+" Right-justified
+set statusline+=%=
+set statusline+=%1*%l/%L:%c%9*\  " Line/column
+set statusline+=%2*\ %{StatuslineMode()}\ %9* " Mode
+
+function! StatuslineGitBranch()
+  let b:gitbranch=""
+  if &modifiable
+    try
+      let l:dir=expand('%:p:h')
+      let l:gitrevparse = system("git -C ".l:dir." rev-parse --abbrev-ref HEAD")
+      if !v:shell_error
+        let b:gitbranch="(".substitute(l:gitrevparse, '\n', '', 'g').") "
+      endif
+    catch
+    endtry
+  endif
+endfunction
+
+augroup GetGitBranch
+  autocmd!
+  autocmd VimEnter,WinEnter,BufEnter * call StatuslineGitBranch()
+augroup END
+
+function! StatuslineMode()
+  let l:mode=mode()
+  return l:mode
+endfunction
+" End status line
+
+syntax on
 
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
@@ -60,6 +104,11 @@ augroup vimrcEx
   autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
   autocmd BufRead,BufNewFile tmux.conf.local set filetype=tmux
   autocmd BufRead,BufNewFile vimrc.local set filetype=vim
+  au BufRead,BufNewFile *.py set expandtab
+  au BufRead,BufNewFile *.c set expandtab
+  au BufRead,BufNewFile *.h set expandtab
+  au BufRead,BufNewFile Makefile* set noexpandtab
+
 augroup END
 
 " ALE linting events
@@ -79,6 +128,9 @@ augroup ale
   endif
 augroup END
 
+let g:ale_set_highlights = 0
+let g:python_highlight_all = 1
+
 " When the type of shell script is /bin/sh, assume a POSIX-compatible
 " shell for syntax highlighting purposes.
 let g:is_posix = 1
@@ -88,6 +140,9 @@ set tabstop=2
 set shiftwidth=2
 set shiftround
 set expandtab
+set autoindent
+
+let g:formatters_python = ['black']
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
@@ -111,7 +166,8 @@ endif
 
 " Make it obvious where 80 characters is
 set textwidth=80
-set colorcolumn=+1
+" set colorcolumn=+1 " highlight column after 'textwidth'
+" hi ColorColumn ctermbg=darkgrey guibg=darkgrey
 
 " Numbers
 set number
@@ -132,32 +188,17 @@ endfunction
 inoremap <Tab> <C-r>=InsertTabWrapper()<CR>
 inoremap <S-Tab> <C-n>
 
-" Switch between the last two files
-nnoremap <Leader><Leader> <C-^>
-
-" Get off my lawn
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
-
-" Move to wrapped lines
-nnoremap j gj
-nnoremap k gk
-
 " vim-test mappings
-let test#strategy = "dispatch"
 nnoremap <silent> <Leader>t :TestFile<CR>
 nnoremap <silent> <Leader>s :TestNearest<CR>
 nnoremap <silent> <Leader>l :TestLast<CR>
-nnoremap <silent> <Leader>a :TestSuite<CR>
-nnoremap <silent> <Leader>gt :TestVisit<CR>
+
+let test#strategy = 'dispatch'
+" let g:test#neovim#start_normal = 1
+" let g:test#basic#start_normal = 1
 
 " Run commands that require an interactive shell
 nnoremap <Leader>r :RunInInteractiveShell<Space>
-
-" Go error check
-nnoremap <Leader><cr> :GoErrCheck<cr>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -175,6 +216,13 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" Switch between the last two files
+nnoremap <Leader><Leader> <C-^>
+
+" Move to wrapped lines
+nnoremap j gj
+nnoremap k gk
+
 " Move between linting errors
 nnoremap ]r :ALENextWrap<CR>
 nnoremap [r :ALEPreviousWrap<CR>
@@ -190,11 +238,15 @@ nnoremap <c-s> <esc>:w<cr>
 inoremap <c-s> <esc>:w<cr>
 nnoremap <c-x> <esc>:q<cr>
 
-" Copy to clipboard
-map <leader>y "*y
-
 nnoremap <leader>e <esc>:e %:h<cr>
-nnoremap <leader>v <esc>:Vex<cr>
+nnoremap <leader>v <esc>:Vex %:p<cr>
+
+" Ruby
+map <leader>b orequire 'pry'; binding.pry<esc>
+map <leader>sp :AV<cr>
+map <leader>te Irequire 'rails_helper'<cr><cr>RSpec.describe Object do<cr><esc>:w<cr>
+nnoremap <Leader><cr> :RuboCop -A<cr>
+
 
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.

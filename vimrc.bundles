@@ -35,8 +35,15 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'fatih/vim-go'
 Plug 'kchmck/vim-coffee-script'
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
+Plug 'evanleck/vim-svelte'
+Plug 'vim-python/python-syntax'
+Plug 'Vimjas/vim-python-pep8-indent'
+
+" Vim Wiki
+Plug 'vimwiki/vimwiki'
 
 " Rails
 Plug 'tpope/vim-bundler'
@@ -45,8 +52,10 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 
 " Utilities
+Plug 'frazrepo/vim-rainbow' " Show matching braces
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-dispatch'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim' " Useful vim commands
 Plug 'pbrisbin/vim-mkdir'
 Plug 'tpope/vim-eunuch' " Shell commands
@@ -55,7 +64,10 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'unblevable/quick-scope' " Jump to words faster
 Plug 'vim-scripts/tComment'
-Plug 'evanleck/vim-svelte'
+Plug 'ngmy/vim-rubocop'
+Plug 'github/copilot.vim' " autocomplete
+Plug 'Chiel92/vim-autoformat'
+
 
 if g:has_async
   Plug 'dense-analysis/ale'

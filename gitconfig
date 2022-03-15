@@ -21,7 +21,7 @@
   template = ~/.gitmessage
   gpgsign = true
 [fetch]
-  prune = true
+	prune = true
 [rebase]
   autosquash = true
 [include]
@@ -34,11 +34,14 @@
   helper = osxkeychain
 [user]
   name = Dean Barnett
-  signingkey = 45DAB422C0608F1B
-  email = dean@rotorvideos.com
-[url "git@github.com:"]
-  insteadOf = https://github.com/
-[gpg]
-  program = gpg
+	signingkey = 45DAB422C0608F1B
+	email = dean@rotorvideos.com
 [pull]
 	ff = only
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[gpg]
+	program = /usr/local/bin/gpg

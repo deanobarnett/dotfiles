@@ -48,6 +48,8 @@ _load_settings() {
 }
 _load_settings "$HOME/.zsh/configs"
 
+source ~/Developer/src/github.com/marlonrichert/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
 export GOPATH=/Users/dean/Developer
 export PATH=$PATH:$GOPATH/bin
 export GPG_TTY=$(tty)
@@ -65,7 +67,7 @@ if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
     source ~/.gnupg/.gpg-agent-info
     export GPG_AGENT_INFO
 else
-    eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
+    eval $(gpg-agent --daemon -q)
 fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
@@ -80,3 +82,16 @@ if [ -f '/Users/dean/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dean/googl
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/dean/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dean/google-cloud-sdk/completion.zsh.inc'; fi
+export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/opt/terraform@0.12/bin/terraform terraform
+source <(kubectl completion bash)
+export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+
+# NVM
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+export PATH="/Users/dean/Library/Python/3.8/bin:$PATH"
+export GPG_TTY=$(tty)
