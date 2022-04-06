@@ -82,10 +82,12 @@ if [ -f '/Users/dean/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dean/googl
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/dean/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dean/google-cloud-sdk/completion.zsh.inc'; fi
-export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/opt/terraform@0.12/bin/terraform terraform
+
+# export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
+# complete -o nospace -C /usr/local/opt/terraform@0.12/bin/terraform terraform
+
 source <(kubectl completion bash)
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 

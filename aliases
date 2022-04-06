@@ -5,12 +5,14 @@ alias ln="ln -v"
 alias mkdir="mkdir -p"
 alias v="nvim"
 alias c="cd"
+alias ...="cd ../.."
 alias rweb="cd ~/Developer/src/github.com/KanisiTech/rotor-web"
 alias mkit="cd ~/Developer/src/github.com/moneykit/moneykit-api"
 
 # Docker
 alias dc="docker-compose"
-alias dstats='docker stats --format "table {{.Name}}:\t{{.MemUsage}}\t{{.CPUPerc}}"'
+alias dstats='docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"'
+alias dtop="docker run -it --rm --pid host busybox top"
 
 # Git
 alias gl="git log --decorate --oneline --graph -10"

@@ -128,6 +128,7 @@ augroup ale
   endif
 augroup END
 
+let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 0
 let g:python_highlight_all = 1
 
