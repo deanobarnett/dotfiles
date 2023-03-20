@@ -5,7 +5,7 @@ let mapleader = ","
 
 " Minimal setip
 set ai nocp digraph hid ru sc vb wmnu noeb noet nosol
-set bs=2 fo=cqrt ls=2 shm=at tw=72 ww=<,>,h,l 
+set bs=2 fo=cqrt ls=2 shm=at tw=72 ww=<,>,h,l
 set comments=b:#,:%,n:>
 set list listchars=tab:»·,trail:·
 
@@ -21,6 +21,7 @@ set autowrite     " Automatically :write before running commands
 set modelines=0   " Disable modelines as a security precaution
 set nomodeline
 set clipboard=unnamed
+set nofoldenable
 
 " Match case only when supplied
 set ignorecase
@@ -32,7 +33,7 @@ set splitright
 
 " Status line colors
 hi User1 ctermbg=darkgrey ctermfg=green guibg=darkgrey guifg=green
-hi User2 ctermbg=lightyellow ctermfg=black guibg=lƣghtyellow guifg=black
+hi User2 ctermbg=lightyellow ctermfg=black guibg=lightyellow guifg=black
 hi User3 ctermbg=darkgrey ctermfg=darkred guibg=darkgrey guifg=darkred
 hi User9 ctermbg=darkgrey ctermfg=white guibg=darkgrey guifg=white
 
@@ -74,6 +75,8 @@ endfunction
 " End status line
 
 syntax on
+set background=dark
+" colorscheme onedark
 
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
@@ -93,9 +96,9 @@ augroup vimrcEx
   " Don't do it for commit messages, when the position is invalid, or when
   " inside an event handler (happens when dropping a file on gvim).
   autocmd BufReadPost *
-    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
+        \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif
 
   " Set syntax highlighting for specific file types
   autocmd BufRead,BufNewFile *.md set filetype=markdown
@@ -117,8 +120,8 @@ augroup ale
 
   if g:has_async
     autocmd VimEnter *
-      \ set updatetime=1000 |
-      \ let g:ale_lint_on_text_changed = 0
+          \ set updatetime=1000 |
+          \ let g:ale_lint_on_text_changed = 0
     autocmd CursorHold * call ale#Queue(0)
     autocmd CursorHoldI * call ale#Queue(0)
     autocmd InsertEnter * call ale#Queue(0)
@@ -129,8 +132,8 @@ augroup ale
 augroup END
 
 let g:ale_fix_on_save = 1
-let g:ale_set_highlights = 0
-let g:python_highlight_all = 1
+let g:ale_set_highlights = 1
+let b:ale_warn_about_trailing_whitespace = 0
 
 " When the type of shell script is /bin/sh, assume a POSIX-compatible
 " shell for syntax highlighting purposes.
@@ -143,7 +146,23 @@ set shiftround
 set expandtab
 set autoindent
 
-let g:formatters_python = ['black']
+" Tab completion
+" will insert tab at beginning of line,
+" will use completion if not at beginning
+set wildmode=list:longest,list:full
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<Tab>"
+    else
+        return "\<C-n>"
+    endif
+endfunction
+inoremap <Tab> <C-r>=InsertTabWrapper()<CR>
+" inoremap <S-Tab> <C-n>
+
+inoremap <silent><expr> <C-space> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
+
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
@@ -173,21 +192,14 @@ set textwidth=80
 " Numbers
 set number
 set numberwidth=5
-
-" Tab completion
-" will insert tab at beginning of line,
-" will use completion if not at beginning
 set wildmode=list:longest,list:full
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<Tab>"
-    else
-        return "\<C-p>"
-    endif
-endfunction
-inoremap <Tab> <C-r>=InsertTabWrapper()<CR>
-inoremap <S-Tab> <C-n>
+
+" Toggle relative numbers on focus
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
 
 " vim-test mappings
 nnoremap <silent> <Leader>t :TestFile<CR>
@@ -206,10 +218,6 @@ let g:html_indent_tags = 'li\|p'
 
 " Set tags for vim-fugitive
 set tags^=.git/tags
-
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
 
 " Quicker window movement
 nnoremap <C-j> <C-w>j
@@ -232,15 +240,17 @@ nnoremap [r :ALEPreviousWrap<CR>
 nnoremap <c-p> :Files<cr>
 
 " Save and quit
-imap <c-s> <esc>:w<cr>
-vmap <c-s> <esc>:w<cr>
-nmap <c-s> <esc>:w<cr>
-nnoremap <c-s> <esc>:w<cr>
-inoremap <c-s> <esc>:w<cr>
-nnoremap <c-x> <esc>:q<cr>
+imap <c-s> <esc>:w!<cr>
+vmap <c-s> <esc>:w!<cr>
+nmap <c-s> <esc>:w!<cr>
+nnoremap <c-s> <esc>:w!<cr>
+inoremap <c-s> <esc>:w!<cr>
+nnoremap <c-x> <esc>:q!<cr>
+nnoremap <c-q> <esc>:q!<cr>
 
 nnoremap <leader>e <esc>:e %:h<cr>
-nnoremap <leader>v <esc>:Vex %:p<cr>
+" nnoremap <leader>v <esc>:Vex %:p<cr>
+nnoremap <leader>v <esc>:FocusSplitNicely<cr>
 
 " Ruby
 map <leader>b orequire 'pry'; binding.pry<esc>
@@ -265,8 +275,38 @@ set complete+=kspell
 map <leader>y "*y
 map <Leader>p :set paste<CR><esc>"*]p:set nopaste<cr>
 
+map <leader>da :r !date<CR>
+
+" movement
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " Golang
 let g:go_fmt_command = "goimports"
+
+if has('nvim')
+  lua require("focus").setup()
+  lua require('onedark').load()
+  lua require('nvim-treesitter.configs').setup{ensure_installed = {"lua", "vim", "go", "python", "ruby", "rust", "typescript", "javascript", "bash"},auto_install = true, highlight = { enable = true}}
+endif
+
+" Pomodoro
+map <leader>po :Dispatch pomo<CR>
+
+" Docker shell
+map <leader>sh :Start make shell.test<CR>
+
+set signcolumn=yes
+
+nmap <leader>rn <Plug>(coc-rename)
+
+imap <silent><script><expr> <C-space> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
+let g:copilot_filetypes = {
+      \ '*': v:true,
+      \ }
 
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local

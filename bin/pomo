@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+task="${1:-write code}"
+
+if [ -z "$task" ]; then
+    echo "Usage: pomo <task>"
+    exit 1
+fi
+
+notify() {
+  printf "%s - %s\n" "$(date "+%H:%M")" "$1"
+  say "$1"
+}
+
+take_break() {
+  notify "$1 minute break"
+  sleep $(($1*60))
+}
+
+work() {
+  notify "$task"
+  sleep $((25*60))
+}
+
+while true; do
+  work
+  take_break 5
+  work
+  take_break 5
+  work
+  take_break 15
+done

@@ -25,6 +25,9 @@ else
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 endif
 
+Plug 'neovim/nvim-lspconfig'
+Plug 'sheerun/vim-polyglot'
+
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -41,6 +44,10 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'evanleck/vim-svelte'
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'hashivim/vim-terraform'
+Plug 'rust-lang/rust.vim'
+Plug 'simrat39/rust-tools.nvim'
 
 " Vim Wiki
 Plug 'vimwiki/vimwiki'
@@ -60,14 +67,18 @@ Plug 'junegunn/fzf.vim' " Useful vim commands
 Plug 'pbrisbin/vim-mkdir'
 Plug 'tpope/vim-eunuch' " Shell commands
 Plug 'tpope/vim-projectionist'
+Plug 'ggandor/leap.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'unblevable/quick-scope' " Jump to words faster
 Plug 'vim-scripts/tComment'
 Plug 'ngmy/vim-rubocop'
 Plug 'github/copilot.vim' " autocomplete
 Plug 'Chiel92/vim-autoformat'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'beauwilliams/focus.nvim' " Focus on a single window
 
+" Colors
+Plug 'navarasu/onedark.nvim'
 
 if g:has_async
   Plug 'dense-analysis/ale'

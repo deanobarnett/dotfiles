@@ -9,9 +9,17 @@ docker-debug() {
     return 1
   fi
 
+  echo "Starting debug sidecar for container $1"
+
+  [ ! -d "/tmp/debug-$1" ] && mkdir "/tmp/debug-$1"
+  echo "Mounting /scratch to /tmp/debug-$1"
+
   docker run --rm -ti \
+    --name="debug-${1:0:6}" \
+    --workdir="/scratch" \
+    --volume="/tmp/debug-$1:/scratch" \
     --pid="container:$1" \
-    --net="container:$1" \
+    --network="container:$1" \
     --cap-add sys_admin \
     --cap-add sys_ptrace \
     hmarr/debug-tools
@@ -50,8 +58,6 @@ _load_settings "$HOME/.zsh/configs"
 
 source ~/Developer/src/github.com/marlonrichert/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
-export GOPATH=/Users/dean/Developer
-export PATH=$PATH:$GOPATH/bin
 export GPG_TTY=$(tty)
 
 # Local config
@@ -70,30 +76,31 @@ else
     eval $(gpg-agent --daemon -q)
 fi
 
+# tfswitch uses this for terraform
+export PATH=$PATH:/Users/deanbarnett/bin
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-# added by travis gem
-[ ! -s /Users/dean/.travis/travis.sh ] || source /Users/dean/.travis/travis.sh
-export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/dean/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dean/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/dean/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dean/google-cloud-sdk/completion.zsh.inc'; fi
-
 autoload -U +X bashcompinit && bashcompinit
-
-# export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
-# complete -o nospace -C /usr/local/opt/terraform@0.12/bin/terraform terraform
-
-source <(kubectl completion bash)
-export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+source <(kubectl completion zsh)
 
 # NVM
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-export PATH="/Users/dean/Library/Python/3.8/bin:$PATH"
 export GPG_TTY=$(tty)
+export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+
+source ~/.gvm/scripts/gvm
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

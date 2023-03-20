@@ -1,5 +1,6 @@
 [init]
   templatedir = ~/.git_template
+	defaultBranch = main
 [push]
   default = current
 [color]
@@ -15,6 +16,7 @@
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
+	editor = nvim
 [merge]
   ff = only
 [commit]
@@ -34,8 +36,8 @@
   helper = osxkeychain
 [user]
   name = Dean Barnett
-	signingkey = 45DAB422C0608F1B
-	email = dean@rotorvideos.com
+	signingkey = 19C8ECD31224E670
+	email = dean@moneykit.com
 [pull]
 	ff = only
 [filter "lfs"]
@@ -44,4 +46,4 @@
 	process = git-lfs filter-process
 	required = true
 [gpg]
-	program = /usr/local/bin/gpg
+	program = /opt/homebrew/bin/gpg

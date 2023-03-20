@@ -1,4 +1,5 @@
 # Unix
+alias ag="rg"
 alias ls="exa"
 alias l="ls -al"
 alias ln="ln -v"
@@ -6,7 +7,6 @@ alias mkdir="mkdir -p"
 alias v="nvim"
 alias c="cd"
 alias ...="cd ../.."
-alias rweb="cd ~/Developer/src/github.com/KanisiTech/rotor-web"
 alias mkit="cd ~/Developer/src/github.com/moneykit/moneykit-api"
 
 # Docker
@@ -24,11 +24,18 @@ alias gcm="git commit -vS"
 alias gp="git push"
 alias gpf="git push -f"
 alias pull-master="git pull --rebase origin master"
-alias gplm="git pull --rebase origin master"
+alias gplm="git pull --rebase origin main"
 alias grb='git branch --sort=-committerdate | head -n 20'
 
 # K8s
-alias k=kubectl
+alias k='kubectl'
+alias kc='k config view --minify | grep name'
+alias kdp='kubectl describe pod'
+alias ke='kubectl explain'
+alias kg='kubectl get pods --show-labels'
+alias ks='kubectl get namespaces'
+alias kga='k get pod --all-namespaces'
+alias kgaa='kubectl get all --show-labels'
 
 # Ruby / Rails
 alias b="bundle"
@@ -38,8 +45,8 @@ alias migrate="rake db:migrate db:rollback && rake db:migrate"
 alias open-migration="v `g status | ag migrate | xargs`"
 
 # Python
-alias pip="pip3"
-alias lint-py="dc run --rm api black app && mypy -m app.main && isort app && flake8"
+alias lint-py="poetry int fmt lint"
+alias py-lock-fix="git checkout --theirs poetry.lock && poetry lock --no-update && git add poetry.lock"
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
@@ -49,8 +56,14 @@ alias todo="nvim ~/TODO.md"
 alias notes="nvim ~/notes.md"
 
 # Misc
-alias wthr="curl wttr.in/Belfast"
-alias weather="curl v2.wttr.in/Belfast"
+alias wthr="curl wttr.in/Armagh"
+alias weather="curl v2.wttr.in/Armagh"
+alias pom="porsmo"
+
+# MK
+alias clusters="cd ~/Developer/src/github.com/moneykit/mk-clusters && git pull"
+alias mkdev="mprocs -c tmp/mprocs.yaml"
+
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
