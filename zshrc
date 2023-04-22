@@ -3,6 +3,8 @@ for function in ~/.zsh/functions/*; do
   source $function
 done
 
+export TERM=xterm-256color
+
 docker-debug() {
   if [ -z "$1" ]; then
     echo "usage: docker-debug CONTAINER-ID"
@@ -69,11 +71,10 @@ setopt autocd
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
-    source ~/.gnupg/.gpg-agent-info
-    export GPG_AGENT_INFO
+if [ -n "$(pgrep gpg-agent)" ]; then
+  export GPG_AGENT_INFO
 else
-    eval $(gpg-agent --daemon -q)
+  eval $(gpg-agent --daemon -q >/dev/null)
 fi
 
 # tfswitch uses this for terraform
@@ -90,7 +91,6 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-export GPG_TTY=$(tty)
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 
 source ~/.gvm/scripts/gvm

@@ -14,19 +14,9 @@ let g:has_async = v:version >= 800 || has('nvim')
 
 call plug#begin('~/.vim/bundle')
 
-" Define bundles via Github repos
-Plug 'christoomey/vim-run-interactive'
+" Colors
+Plug 'navarasu/onedark.nvim'
 
-" If fzf has already been installed via Homebrew, use the existing fzf
-" Otherwise, install fzf. The `--all` flag makes fzf accessible outside of vim
-if isdirectory("/usr/local/opt/fzf")
-  Plug '/usr/local/opt/fzf'
-else
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-endif
-
-Plug 'neovim/nvim-lspconfig'
-Plug 'sheerun/vim-polyglot'
 
 " Git
 Plug 'airblade/vim-gitgutter'
@@ -58,12 +48,19 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 
+" Python
+" Plug 'davidhalter/jedi-vim'
+
+" File search
+Plug 'nvim-telescope/telescope.nvim'
+
 " Utilities
+Plug 'christoomey/vim-run-interactive'
+Plug 'neovim/nvim-lspconfig'
+Plug 'sheerun/vim-polyglot'
 Plug 'frazrepo/vim-rainbow' " Show matching braces
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-dispatch'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim' " Useful vim commands
 Plug 'pbrisbin/vim-mkdir'
 Plug 'tpope/vim-eunuch' " Shell commands
 Plug 'tpope/vim-projectionist'
@@ -76,9 +73,10 @@ Plug 'github/copilot.vim' " autocomplete
 Plug 'Chiel92/vim-autoformat'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'beauwilliams/focus.nvim' " Focus on a single window
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'mileszs/ack.vim'
 
-" Colors
-Plug 'navarasu/onedark.nvim'
 
 if g:has_async
   Plug 'dense-analysis/ale'

@@ -1,14 +1,15 @@
 set encoding=utf-8
 
 " Leader
-let mapleader = ","
+let mapleader = " "
 
-" Minimal setip
+" Minimal setup
 set ai nocp digraph hid ru sc vb wmnu noeb noet nosol
 set bs=2 fo=cqrt ls=2 shm=at tw=72 ww=<,>,h,l
 set comments=b:#,:%,n:>
 set list listchars=tab:»·,trail:·
 
+set signcolumn=yes
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
 set nowritebackup
@@ -32,10 +33,10 @@ set splitbelow
 set splitright
 
 " Status line colors
-hi User1 ctermbg=darkgrey ctermfg=green guibg=darkgrey guifg=green
-hi User2 ctermbg=lightyellow ctermfg=black guibg=lightyellow guifg=black
-hi User3 ctermbg=darkgrey ctermfg=darkred guibg=darkgrey guifg=darkred
-hi User9 ctermbg=darkgrey ctermfg=white guibg=darkgrey guifg=white
+" hi User1 ctermbg=darkgrey ctermfg=green guibg=darkgrey guifg=green
+" hi User2 ctermbg=lightyellow ctermfg=black guibg=lightyellow guifg=black
+" hi User3 ctermbg=darkgrey ctermfg=darkred guibg=darkgrey guifg=darkred
+" hi User9 ctermbg=darkgrey ctermfg=white guibg=darkgrey guifg=white
 
 " Left-justified
 set laststatus=2  " Always display the status line
@@ -76,7 +77,6 @@ endfunction
 
 syntax on
 set background=dark
-" colorscheme onedark
 
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
@@ -126,8 +126,6 @@ augroup ale
     autocmd CursorHoldI * call ale#Queue(0)
     autocmd InsertEnter * call ale#Queue(0)
     autocmd InsertLeave * call ale#Queue(0)
-  else
-    echoerr "The thoughtbot dotfiles require NeoVim or Vim 8"
   endif
 augroup END
 
@@ -160,29 +158,33 @@ function! InsertTabWrapper()
 endfunction
 inoremap <Tab> <C-r>=InsertTabWrapper()<CR>
 " inoremap <S-Tab> <C-n>
+" inoremap <silent><expr> <C-space> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
 
-inoremap <silent><expr> <C-space> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
-
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
-
-" Use one space, not two, after punctuation.
-set nojoinspaces
-
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in fzf for listing files. Lightning fast and respects .gitignore
-  let $FZF_DEFAULT_COMMAND = 'ag --literal --files-with-matches --nocolor --hidden -g ""'
-
-  if !exists(":Ag")
-    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-    nnoremap \ :Ag<SPACE>
-  endif
+if has('nvim')
+  lua require("focus").setup()
+  lua require('onedark').load()
+  lua require('nvim-treesitter.configs').setup{ensure_installed = {"lua", "vim", "go", "python", "ruby", "rust", "typescript", "javascript", "bash", "html"},auto_install = true, highlight = { enable = true}}
 endif
+
+set list listchars=tab:»·,trail:·,nbsp:· " display whitespace
+set nojoinspaces " use one space, not two, after punctuation.
+
+" --vimgrep -> Needed to parse the rg response properly for ack.vim
+" --type-not sql -> Avoid huge sql file dumps as it slows down the search
+" --smart-case -> Search case insensitive if all lowercase pattern, Search case sensitively otherwise
+let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
+
+" Auto close the Quickfix list after pressing '<enter>' on a list item
+" let g:ack_autoclose = 1
+
+" Any empty ack search will search for the work the cursor is on
+let g:ack_use_cword_for_empty_search = 1
+
+" Don't jump to first match
+cnoreabbrev Ack Ack!
+nnoremap \ :Ack!<Space>
+nnoremap <silent> [q :cprevious<CR>
+nnoremap <silent> ]q :cnext<CR>
 
 " Make it obvious where 80 characters is
 set textwidth=80
@@ -203,27 +205,13 @@ augroup END
 
 " vim-test mappings
 nnoremap <silent> <Leader>t :TestFile<CR>
-nnoremap <silent> <Leader>s :TestNearest<CR>
-nnoremap <silent> <Leader>l :TestLast<CR>
-
 let test#strategy = 'dispatch'
-" let g:test#neovim#start_normal = 1
-" let g:test#basic#start_normal = 1
-
-" Run commands that require an interactive shell
-nnoremap <Leader>r :RunInInteractiveShell<Space>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
 " Set tags for vim-fugitive
 set tags^=.git/tags
-
-" Quicker window movement
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
 
 " Switch between the last two files
 nnoremap <Leader><Leader> <C-^>
@@ -236,8 +224,10 @@ nnoremap k gk
 nnoremap ]r :ALENextWrap<CR>
 nnoremap [r :ALEPreviousWrap<CR>
 
-" Map Ctrl + p to open fuzzy find (FZF)
-nnoremap <c-p> :Files<cr>
+" Map Ctrl + p to open fuzzy find
+nnoremap <c-p> <cmd>Telescope find_files<cr>
+nnoremap <leader>\ <cmd>Telescope live_grep<cr>
+nnoremap <leader>o <cmd>Telescope resume<cr>
 
 " Save and quit
 imap <c-s> <esc>:w!<cr>
@@ -248,26 +238,22 @@ inoremap <c-s> <esc>:w!<cr>
 nnoremap <c-x> <esc>:q!<cr>
 nnoremap <c-q> <esc>:q!<cr>
 
+" Escape
+imap jj <esc>
+imap jk <esc>
+
 nnoremap <leader>e <esc>:e %:h<cr>
-" nnoremap <leader>v <esc>:Vex %:p<cr>
 nnoremap <leader>v <esc>:FocusSplitNicely<cr>
-
-" Ruby
-map <leader>b orequire 'pry'; binding.pry<esc>
-map <leader>sp :AV<cr>
-map <leader>te Irequire 'rails_helper'<cr><cr>RSpec.describe Object do<cr><esc>:w<cr>
-nnoremap <Leader><cr> :RuboCop -A<cr>
-
 
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
-set spellfile=$HOME/.vim-spell-en.utf-8.add
+" set spellfile=$HOME/.vim-spell-en.utf-8.add
 
 " Autocomplete with dictionary words when spell check is on
 set complete+=kspell
 
 " Always use vertical diffs
-" set diffopt+=vertical
+set diffopt+=vertical
 
 " Local config
 
@@ -282,31 +268,39 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
 
 " Golang
 let g:go_fmt_command = "goimports"
 
-if has('nvim')
-  lua require("focus").setup()
-  lua require('onedark').load()
-  lua require('nvim-treesitter.configs').setup{ensure_installed = {"lua", "vim", "go", "python", "ruby", "rust", "typescript", "javascript", "bash"},auto_install = true, highlight = { enable = true}}
-endif
-
-" Pomodoro
-map <leader>po :Dispatch pomo<CR>
-
 " Docker shell
 map <leader>sh :Start make shell.test<CR>
 
-set signcolumn=yes
-
-nmap <leader>rn <Plug>(coc-rename)
-
+" Copilot
 imap <silent><script><expr> <C-space> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
-let g:copilot_filetypes = {
-      \ '*': v:true,
-      \ }
+let g:copilot_filetypes = { '*': v:true, }
+
+" vimwiki
+map <leader>wd :VimwikiMakeDiaryNote<CR>
+au BufNewFile ~/vimwiki/diary/*.wiki :silent 0r !~/.vim/bin/generate-vimwiki-diary-template '%'
+
+" Colemak DH remaps
+" movement keys
+" noremap m h
+" noremap n j
+" noremap e k
+" noremap i l
+
+" next search, same place as 'n' was
+" noremap h n
+" noremap H N
+" jump to end of work
+" noremap j e
+" insert mode, where 'i' used to be
+" noremap l i
+" noremao k m
+"=================
 
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
