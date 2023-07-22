@@ -3,7 +3,8 @@ for function in ~/.zsh/functions/*; do
   source $function
 done
 
-export TERM=xterm-256color
+export TERM="xterm-256color"
+export RUSTC_WRAPPER="sccache"
 
 docker-debug() {
   if [ -z "$1" ]; then
@@ -59,6 +60,7 @@ _load_settings() {
 _load_settings "$HOME/.zsh/configs"
 
 source ~/Developer/src/github.com/marlonrichert/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source <(kubectl completion zsh)
 
 export GPG_TTY=$(tty)
 
@@ -84,23 +86,27 @@ export PATH=$PATH:/Users/deanbarnett/bin
 export PATH="$PATH:$HOME/.rvm/bin"
 
 autoload -U +X bashcompinit && bashcompinit
-source <(kubectl completion zsh)
 
-# NVM
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# # NVM
+# echo "loading nvm..."
+# export NVM_DIR="$HOME/.nvm"
+#   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+#   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 
-source ~/.gvm/scripts/gvm
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
-
+# move this to asdf
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# Add colors to Terminal
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad

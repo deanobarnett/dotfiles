@@ -1,0 +1,16 @@
+#!/bin/bash
+
+env="${1:-sandbox}"
+namespace="moneykit-api-${env}"
+search="${2:-scraper}"
+
+pod() {
+  # Get the pod name
+  kubectl get pods -A | grep -v 'overprovisioning' | grep "$env" | grep "$search" | xargs | cut -d' ' -f2
+}
+
+main() {
+  kubectl logs -n "$namespace" "$(pod)"
+}
+
+main

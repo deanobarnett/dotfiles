@@ -17,18 +17,18 @@ call plug#begin('~/.vim/bundle')
 " Colors
 Plug 'navarasu/onedark.nvim'
 
-
 " Git
-Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb' " Github commands
 
 " Languages
+Plug 'tpope/vim-markdown'
 Plug 'elixir-lang/vim-elixir'
 Plug 'fatih/vim-go'
 Plug 'kchmck/vim-coffee-script'
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'evanleck/vim-svelte'
@@ -38,6 +38,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'hashivim/vim-terraform'
 Plug 'rust-lang/rust.vim'
 Plug 'simrat39/rust-tools.nvim'
+Plug 'tpope/vim-dotenv'
 
 " Vim Wiki
 Plug 'vimwiki/vimwiki'
@@ -64,7 +65,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'tpope/vim-eunuch' " Shell commands
 Plug 'tpope/vim-projectionist'
-Plug 'ggandor/leap.nvim'
+Plug 'folke/flash.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/tComment'
@@ -76,7 +77,10 @@ Plug 'beauwilliams/focus.nvim' " Focus on a single window
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'mileszs/ack.vim'
-
+Plug 'nvim-neo-tree/neo-tree.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'folke/todo-comments.nvim'
 
 if g:has_async
   Plug 'dense-analysis/ale'

@@ -164,7 +164,13 @@ if has('nvim')
   lua require("focus").setup()
   lua require('onedark').load()
   lua require('nvim-treesitter.configs').setup{ensure_installed = {"lua", "vim", "go", "python", "ruby", "rust", "typescript", "javascript", "bash", "html"},auto_install = true, highlight = { enable = true}}
+  lua require('gitsigns').setup()
+  lua require("neo-tree").setup({window = {width = 20}})
+  lua require("todo-comments").setup()
+  " lua require("flash").jump{search = {mode = function(str) return "\\<" .. str end}
 endif
+
+nnoremap <leader>hb :Gitsigns blame_line<CR>
 
 set list listchars=tab:»·,trail:·,nbsp:· " display whitespace
 set nojoinspaces " use one space, not two, after punctuation.
@@ -197,11 +203,11 @@ set numberwidth=5
 set wildmode=list:longest,list:full
 
 " Toggle relative numbers on focus
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
-augroup END
+" augroup numbertoggle
+"   autocmd!
+"   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+"   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+" augroup END
 
 " vim-test mappings
 nnoremap <silent> <Leader>t :TestFile<CR>
@@ -226,8 +232,11 @@ nnoremap [r :ALEPreviousWrap<CR>
 
 " Map Ctrl + p to open fuzzy find
 nnoremap <c-p> <cmd>Telescope find_files<cr>
-nnoremap <leader>\ <cmd>Telescope live_grep<cr>
-nnoremap <leader>o <cmd>Telescope resume<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fr <cmd>Telescope resume<cr>
 
 " Save and quit
 imap <c-s> <esc>:w!<cr>
@@ -242,7 +251,7 @@ nnoremap <c-q> <esc>:q!<cr>
 imap jj <esc>
 imap jk <esc>
 
-nnoremap <leader>e <esc>:e %:h<cr>
+nnoremap <leader>e <esc>:Neotree filesystem toggle reveal_force_cwd<cr>
 nnoremap <leader>v <esc>:FocusSplitNicely<cr>
 
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
@@ -284,6 +293,8 @@ let g:copilot_filetypes = { '*': v:true, }
 " vimwiki
 map <leader>wd :VimwikiMakeDiaryNote<CR>
 au BufNewFile ~/vimwiki/diary/*.wiki :silent 0r !~/.vim/bin/generate-vimwiki-diary-template '%'
+
+let g:neo_tree_remove_legacy_commands = 1
 
 " Colemak DH remaps
 " movement keys

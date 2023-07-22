@@ -1,6 +1,6 @@
 [init]
   templatedir = ~/.git_template
-	defaultBranch = main
+  defaultBranch = main
 [push]
   default = current
 [color]
@@ -16,14 +16,14 @@
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
-	editor = nvim
+  editor = nvim
 [merge]
   ff = only
 [commit]
   template = ~/.gitmessage
   gpgsign = true
 [fetch]
-	prune = true
+  prune = true
 [rebase]
   autosquash = true
 [include]
@@ -36,14 +36,14 @@
   helper = osxkeychain
 [user]
   name = Dean Barnett
-	signingkey = 19C8ECD31224E670
-	email = dean@moneykit.com
+  signingkey = 19C8ECD31224E670
+  email = dean@moneykit.com
 [pull]
-	ff = only
+  ff = only
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [gpg]
-	program = /opt/homebrew/bin/gpg
+  program = /opt/homebrew/bin/gpg

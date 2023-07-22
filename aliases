@@ -5,9 +5,9 @@ alias l="ls -al"
 alias ln="ln -v"
 alias mkdir="mkdir -p"
 alias v="nvim"
-alias c="cd"
-alias ...="cd ../.."
-alias mkit="cd ~/Developer/src/github.com/moneykit/moneykit-api"
+alias c="z"
+alias ...="z ../.."
+alias mkit="z ~/Developer/src/github.com/moneykit/moneykit-api"
 
 # Docker
 alias dc="docker-compose"
@@ -15,6 +15,7 @@ alias dstats='docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}
 alias dtop="docker run -it --rm --pid host busybox top"
 
 # Git
+alias lg="gitui"
 alias gl="git log --decorate --oneline --graph -10"
 alias gaa="git add --all"
 alias gco="git checkout"
@@ -59,6 +60,7 @@ alias notes="nvim ~/notes.md"
 alias wthr="curl wttr.in/Armagh"
 alias weather="curl v2.wttr.in/Armagh"
 alias pom="porsmo"
+alias ts="tmux-session"
 
 # MK
 alias clusters="cd ~/Developer/src/github.com/moneykit/mk-clusters && git pull"
