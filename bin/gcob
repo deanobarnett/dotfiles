@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -e
+
+git checkout "$(git branch --sort=-committerdate | head -n 30 | fzf | sed 's/.* //')"

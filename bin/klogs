@@ -2,7 +2,7 @@
 
 env="${1:-sandbox}"
 namespace="moneykit-api-${env}"
-search="${2:-scraper}"
+search="${2:-celery}"
 
 pod() {
   # Get the pod name
@@ -13,4 +13,6 @@ main() {
   kubectl logs -n "$namespace" "$(pod)"
 }
 
+echo "Getting logs for $env"
+echo "pod: $(pod)"
 main

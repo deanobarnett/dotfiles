@@ -57,7 +57,6 @@ Plug 'nvim-telescope/telescope.nvim'
 
 " Utilities
 Plug 'christoomey/vim-run-interactive'
-Plug 'neovim/nvim-lspconfig'
 Plug 'sheerun/vim-polyglot'
 Plug 'frazrepo/vim-rainbow' " Show matching braces
 Plug 'janko-m/vim-test'
@@ -81,6 +80,13 @@ Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'folke/todo-comments.nvim'
+Plug 'ggandor/leap.nvim'
+
+" LSP
+" Plug 'williamboman/mason.nvim'
+" Plug 'williamboman/mason-lspconfig.nvim'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'integralist/vim-mypy'
 
 if g:has_async
   Plug 'dense-analysis/ale'

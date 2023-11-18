@@ -3,8 +3,17 @@ for function in ~/.zsh/functions/*; do
   source $function
 done
 
+plugins=(
+  git
+  dotenv
+  macos
+  tmux
+  vi-mode
+)
+
 export TERM="xterm-256color"
 export RUSTC_WRAPPER="sccache"
+ZSH_TMUX_AUTOSTART=true
 
 docker-debug() {
   if [ -z "$1" ]; then
@@ -104,9 +113,17 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(atuin init zsh)"
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # Add colors to Terminal
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
+
+# bun completions
+[ -s "/Users/deanbarnett/.bun/_bun" ] && source "/Users/deanbarnett/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

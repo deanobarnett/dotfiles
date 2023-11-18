@@ -115,23 +115,23 @@ augroup vimrcEx
 augroup END
 
 " ALE linting events
-augroup ale
-  autocmd!
-
-  if g:has_async
-    autocmd VimEnter *
-          \ set updatetime=1000 |
-          \ let g:ale_lint_on_text_changed = 0
-    autocmd CursorHold * call ale#Queue(0)
-    autocmd CursorHoldI * call ale#Queue(0)
-    autocmd InsertEnter * call ale#Queue(0)
-    autocmd InsertLeave * call ale#Queue(0)
-  endif
-augroup END
-
-let g:ale_fix_on_save = 1
-let g:ale_set_highlights = 1
-let b:ale_warn_about_trailing_whitespace = 0
+" augroup ale
+"   autocmd!
+"
+"   if g:has_async
+"     autocmd VimEnter *
+"           \ set updatetime=1000 |
+"           \ let g:ale_lint_on_text_changed = 0
+"     autocmd CursorHold * call ale#Queue(0)
+"     autocmd CursorHoldI * call ale#Queue(0)
+"     autocmd InsertEnter * call ale#Queue(0)
+"     autocmd InsertLeave * call ale#Queue(0)
+"   endif
+" augroup END
+"
+" let g:ale_fix_on_save = 1
+" let g:ale_set_highlights = 1
+" let b:ale_warn_about_trailing_whitespace = 0
 
 " When the type of shell script is /bin/sh, assume a POSIX-compatible
 " shell for syntax highlighting purposes.
@@ -167,8 +167,31 @@ if has('nvim')
   lua require('gitsigns').setup()
   lua require("neo-tree").setup({window = {width = 20}})
   lua require("todo-comments").setup()
-  " lua require("flash").jump{search = {mode = function(str) return "\\<" .. str end}
+  lua require('leap').add_default_mappings()
+
+  " LSP
+  " lua require("mason").setup()
+  " lua require("mason-lspconfig").setup({ensure_installed = {"bashls", "cssls", "eslint", "gopls", "html", "jsonls", "pylsp", "ruff_lsp", "rust_analyzer", "tsserver", "vimls", "yamlls", "sqlls", "ruby_ls"}})
+  " lua require("mason-lspconfig").setup_handlers {}
+  " lua require("lspconfig").rust_analyzer.setup {}
+  " lua require("lspconfig").ruff_lsp.setup {init_options = { settings = { args = {"--ignore=E501 --select=I,E,W,F,C --line-length=120"} } }}
+  " lua require("lspconfig").pylsp.setup { settings = { pylsp = { plugins = { ruff = { enabled = true, lineLength=120, extendSelect = { "I", "E","W","F","C" }, }, } } } }
+  " lua require("lspconfig").html.setup {}
+  " lua require("lspconfig").sqlls.setup {}
+  " lua require("lspconfig").bashls.setup {}
+  " lua require("lspconfig").eslint.setup {}
+  " lua require("lspconfig").jsonls.setup {}
 endif
+
+
+" LSP keybindings
+" nnoremap <leader>gD :lua vim.lsp.buf.declaration()<CR>
+" nnoremap <leader>gd :lua vim.lsp.buf.definition()<CR>
+nnoremap <leader>gr :lua require('telescope.builtin').lsp_references()<CR>
+" nnoremap <leader>K :lua vim.lsp.buf.hover()<CR>
+" nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
+" nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>
+" autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
 
 nnoremap <leader>hb :Gitsigns blame_line<CR>
 
@@ -196,6 +219,10 @@ nnoremap <silent> ]q :cnext<CR>
 set textwidth=80
 " set colorcolumn=+1 " highlight column after 'textwidth'
 " hi ColorColumn ctermbg=darkgrey guibg=darkgrey
+" lua require('onedark').setup { style = 'darker' }
+" lua require('onedark').load()
+" colorscheme onedark
+
 
 " Numbers
 set number
@@ -203,11 +230,11 @@ set numberwidth=5
 set wildmode=list:longest,list:full
 
 " Toggle relative numbers on focus
-" augroup numbertoggle
-"   autocmd!
-"   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-"   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
-" augroup END
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
 
 " vim-test mappings
 nnoremap <silent> <Leader>t :TestFile<CR>
@@ -227,8 +254,8 @@ nnoremap j gj
 nnoremap k gk
 
 " Move between linting errors
-nnoremap ]r :ALENextWrap<CR>
-nnoremap [r :ALEPreviousWrap<CR>
+" nnoremap ]r :ALENextWrap<CR>
+" nnoremap [r :ALEPreviousWrap<CR>
 
 " Map Ctrl + p to open fuzzy find
 nnoremap <c-p> <cmd>Telescope find_files<cr>
@@ -272,7 +299,8 @@ map <Leader>p :set paste<CR><esc>"*]p:set nopaste<cr>
 
 map <leader>da :r !date<CR>
 
-" movement
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-tsserver', 'coc-go', 'coc-html', 'coc-css', 'coc-yaml', 'coc-python', 'coc-rls', 'coc-prettier', 'coc-eslint', 'coc-tslint', 'coc-markdownlint']
+" " movement
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
