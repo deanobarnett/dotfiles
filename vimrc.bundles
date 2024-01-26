@@ -42,15 +42,13 @@ Plug 'tpope/vim-dotenv'
 
 " Vim Wiki
 Plug 'vimwiki/vimwiki'
+Plug 'epwalsh/obsidian.nvim'
 
 " Rails
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
-
-" Python
-" Plug 'davidhalter/jedi-vim'
 
 " File search
 Plug 'nvim-telescope/telescope.nvim'
@@ -75,18 +73,19 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'beauwilliams/focus.nvim' " Focus on a single window
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
-Plug 'mileszs/ack.vim'
 Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'lewis6991/gitsigns.nvim'
+
+Plug 'mileszs/ack.vim'
 Plug 'folke/todo-comments.nvim'
 Plug 'ggandor/leap.nvim'
-
-" LSP
-" Plug 'williamboman/mason.nvim'
-" Plug 'williamboman/mason-lspconfig.nvim'
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'integralist/vim-mypy'
+Plug 'ThePrimeagen/refactoring.nvim'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvimtools/none-ls.nvim'
+Plug 'stevearc/conform.nvim'
 
 if g:has_async
   Plug 'dense-analysis/ale'

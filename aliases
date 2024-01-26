@@ -6,6 +6,7 @@ alias ln="ln -v"
 alias mkdir="mkdir -p"
 alias v="nvim"
 alias c="z"
+alias t="tmux"
 alias ...="z ../.."
 alias mkit="z ~/Developer/src/github.com/moneykit/moneykit-api"
 

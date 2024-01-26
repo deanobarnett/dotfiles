@@ -88,6 +88,8 @@ else
   eval $(gpg-agent --daemon -q >/dev/null)
 fi
 
+export PATH=/Users/deanbarnett/.local/bin:$PATH
+
 # tfswitch uses this for terraform
 export PATH=$PATH:/Users/deanbarnett/bin
 

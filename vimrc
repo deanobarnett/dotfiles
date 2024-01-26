@@ -161,39 +161,39 @@ inoremap <Tab> <C-r>=InsertTabWrapper()<CR>
 " inoremap <silent><expr> <C-space> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
 
 if has('nvim')
-  lua require("focus").setup()
+  lua require("focus").setup({ autoresize = { enable = false } })
   lua require('onedark').load()
   lua require('nvim-treesitter.configs').setup{ensure_installed = {"lua", "vim", "go", "python", "ruby", "rust", "typescript", "javascript", "bash", "html"},auto_install = true, highlight = { enable = true}}
   lua require('gitsigns').setup()
   lua require("neo-tree").setup({window = {width = 20}})
   lua require("todo-comments").setup()
   lua require('leap').add_default_mappings()
+  lua require("obsidian").setup({})
+  lua require('refactoring').setup()
 
   " LSP
-  " lua require("mason").setup()
-  " lua require("mason-lspconfig").setup({ensure_installed = {"bashls", "cssls", "eslint", "gopls", "html", "jsonls", "pylsp", "ruff_lsp", "rust_analyzer", "tsserver", "vimls", "yamlls", "sqlls", "ruby_ls"}})
-  " lua require("mason-lspconfig").setup_handlers {}
-  " lua require("lspconfig").rust_analyzer.setup {}
-  " lua require("lspconfig").ruff_lsp.setup {init_options = { settings = { args = {"--ignore=E501 --select=I,E,W,F,C --line-length=120"} } }}
-  " lua require("lspconfig").pylsp.setup { settings = { pylsp = { plugins = { ruff = { enabled = true, lineLength=120, extendSelect = { "I", "E","W","F","C" }, }, } } } }
-  " lua require("lspconfig").html.setup {}
-  " lua require("lspconfig").sqlls.setup {}
-  " lua require("lspconfig").bashls.setup {}
-  " lua require("lspconfig").eslint.setup {}
-  " lua require("lspconfig").jsonls.setup {}
+  lua require("mason").setup()
+  lua require("mason-lspconfig").setup({ensure_installed = {"bashls", "cssls", "eslint", "gopls", "html", "jsonls", "rust_analyzer", "vimls", "yamlls", "sqlls", "ruby_ls"}})
+  lua require("mason-lspconfig").setup_handlers {}
+  lua require("lspconfig").pylsp.setup { settings = { pylsp = { plugins = { ruff = { enabled = true, lineLength=120, extendSelect = { "I","E","W","F","C" }, extendIgnore = { "E501" } }, pylint = { enabled = false } } } } }
+
+  " Autoformat
+  lua require("conform").setup({ format_on_save = { timeout_ms = 500, lsp_fallback = true, }, formatters_by_ft = { lua = { "stylua" }, python = { "ruff_fix" }, javascript =  { "prettier" }, }, })
+  lua require("conform").formatters.ruff_fix = { prepend_args = { "--select", "E,W,F,C,I" }, }
+
+  lua vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", callback = function(args) require("conform").format({ bufnr = args.buf }) end, })
 endif
 
-
 " LSP keybindings
-" nnoremap <leader>gD :lua vim.lsp.buf.declaration()<CR>
-" nnoremap <leader>gd :lua vim.lsp.buf.definition()<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nnoremap <leader>gd :lua require('telescope.builtin').lsp_definitions()<CR>
 nnoremap <leader>gr :lua require('telescope.builtin').lsp_references()<CR>
-" nnoremap <leader>K :lua vim.lsp.buf.hover()<CR>
-" nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
-" nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>
-" autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+nnoremap <leader>dg :lua require('telescope.builtin').diagnostics()<CR>
+nnoremap <leader>K :lua vim.lsp.buf.hover()<CR>
+nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>
 
-nnoremap <leader>hb :Gitsigns blame_line<CR>
+nnoremap <leader>gb :Gitsigns blame_line<CR>
 
 set list listchars=tab:»·,trail:·,nbsp:· " display whitespace
 set nojoinspaces " use one space, not two, after punctuation.
@@ -265,6 +265,9 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fr <cmd>Telescope resume<cr>
 
+nnoremap <leader>rr :lua require('refactoring').select_refactor()<CR>
+vnoremap <leader>rr :lua require('refactoring').select_refactor()<CR>
+
 " Save and quit
 imap <c-s> <esc>:w!<cr>
 vmap <c-s> <esc>:w!<cr>
@@ -301,11 +304,6 @@ map <leader>da :r !date<CR>
 
 let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-tsserver', 'coc-go', 'coc-html', 'coc-css', 'coc-yaml', 'coc-python', 'coc-rls', 'coc-prettier', 'coc-eslint', 'coc-tslint', 'coc-markdownlint']
 " " movement
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
 
 " Golang
 let g:go_fmt_command = "goimports"
