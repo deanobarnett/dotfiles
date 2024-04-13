@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -euo pipefail
+
+pod=$(kubectl get pods -n moneykit-api | ag Running | cut -d' ' -f1 | ag scraping | head -n1)
+echo "Connecting to $pod"
+kubectl exec -it "$pod" -n moneykit-api -- bash

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+git status |
+  grep "both modified" |
+  sed -e 's/^.*both modified: *//' |
+  xargs nvim
+

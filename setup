@@ -1,0 +1,45 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Install everything I need
+
+# Install Homebrew if on MacOS
+if [ "$(uname)" = "Darwin" ]; then
+    if ! command -v brew >/dev/null; then
+        echo "Installing Homebrew"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+fi
+
+export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
+
+PACKAGE_MANAGER=$(command -v apt-get || command -v brew -qf)
+PACKAGES="git nvim zsh tmux curl atuin fzf bat exa starship git alacritty asdf ripgrep:rg fd-find:fd"
+
+# No package manager
+if [ -z "$PACKAGE_MANAGER" ]; then
+    echo "No package manager found"
+    exit 1
+fi
+
+echo "Installing packages via $PACKAGE_MANAGER..."
+
+for package_id in $PACKAGES; do
+    package=$(echo "$package_id" | cut -d: -f1)
+    alias=$(echo "$package_id" | cut -d: -f2)
+    if ! command -v "$alias" >/dev/null; then
+        echo "Installing $package..."
+        "$PACKAGE_MANAGER" install "$package"
+    else
+        echo "$package already installed"
+    fi
+done
+
+# Install Rust
+if ! command -v rustup >/dev/null; then
+    echo "Installing Rust..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
+echo "Done"
