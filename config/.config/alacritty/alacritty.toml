@@ -1,0 +1,26 @@
+[terminal.shell]
+program = "/opt/homebrew/bin/fish"
+
+[font]
+size = 16.0
+
+[font.normal]
+family = "0xProto Nerd Font"
+
+[[keyboard.bindings]]
+chars = "#"
+key = "Key3"
+mods = "Option|Alt"
+
+[[keyboard.bindings]]
+action = "ToggleFullscreen"
+key = "F"
+mods = "Command|Control"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[window]
+decorations = "None"
+option_as_alt = "Both"

@@ -1,0 +1,39 @@
+[init]
+  defaultBranch = main
+[push]
+  default = current
+[color]
+  ui = auto
+[alias]
+  aa = add --all
+  ap = add --patch
+  ci = commit -v
+  co = checkout
+  pf = push --force-with-lease
+  st = status
+[core]
+  excludesfile = ~/.gitignore
+  autocrlf = input
+  editor = vim
+[merge]
+  ff = only
+[pull]
+  ff = only
+[commit]
+  template = ~/.gitmessage
+  gpgsign = true
+[fetch]
+  prune = true
+[rebase]
+  autosquash = true
+[include]
+  path = ~/.gitconfig.local
+[credential]
+  helper = osxkeychain
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[gpg]
+  program = /opt/homebrew/bin/gpg
