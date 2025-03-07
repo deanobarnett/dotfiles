@@ -22,15 +22,10 @@ require("lazy").setup({
     { "headlines.nvim", enabled = false },
     { "MeanderingProgrammer/render-markdown.nvim", enabled = false },
     { "neovim/nvim-lspconfig", opts = { inlay_hints = { enabled = false } } },
+    { "nvim-lualine/lualine.nvim", opts = { options = { theme = "codedark" } } },
     { "folke/snacks.nvim", opts = { scroll = { enabled = false } } },
-    {
-      "nvim-lualine/lualine.nvim",
-      opts = function(_, opts)
-        opts.options.theme = "codedark"
-      end,
-    },
 
-    -- notes system
+    -- additional plugins
     {
       "zk-org/zk-nvim",
       event = "VeryLazy",
@@ -63,6 +58,8 @@ require("lazy").setup({
 })
 
 vim.g.snacks_animate = false
+vim.opt.spell = true
+vim.opt.spelllang = "en_gb"
 
 local opt = vim.opt
 opt.wrap = true
