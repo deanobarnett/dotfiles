@@ -14,7 +14,7 @@ set -x TERM xterm-256color
 
 # Set up paths
 set -x GOBIN ~/go/bin
-set -x PATH ~/.local/bin $GOBIN /opt/homebrew/bin /opt/homebrew/opt/sqlite/bin /opt/homebrew/opt/curl/bin /opt/homebrew/opt/ruby/bin /opt/homebrew/lib/ruby/gems/3.3.0/bin $PATH
+set -x PATH ~/bin ~/.local/bin $GOBIN /opt/homebrew/bin /opt/homebrew/opt/sqlite/bin /opt/homebrew/opt/curl/bin /opt/homebrew/opt/ruby/bin /opt/homebrew/lib/ruby/gems/3.3.0/bin $PATH
 
 source ~/.cargo/env.fish
 ~/.local/bin/mise activate fish | source
