@@ -12,6 +12,8 @@ set -x EDITOR nvim
 set -x GPG_TTY (tty)
 set -x TERM xterm-256color
 
+set -x HOMEBREW_NO_AUTO_UPDATE 1
+
 # Set up paths
 set -x GOBIN ~/go/bin
 set -x PATH ~/bin ~/.local/bin $GOBIN /opt/homebrew/bin /opt/homebrew/opt/sqlite/bin /opt/homebrew/opt/curl/bin /opt/homebrew/opt/ruby/bin /opt/homebrew/lib/ruby/gems/3.3.0/bin $PATH
