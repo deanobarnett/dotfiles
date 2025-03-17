@@ -31,6 +31,7 @@ end
 
 # Unix abbreviations
 abbr -a ag rg
+abbr -a cdate date +"%Y-%m-%d w%V %a"
 abbr -a ls 'eza --icons'
 abbr -a l 'ls -al'
 abbr -a ln 'ln -v'
