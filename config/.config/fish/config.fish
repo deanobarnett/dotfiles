@@ -8,11 +8,12 @@ fish_vi_key_bindings
 set -x CLICOLOR 1
 set -x LSCOLORS ExFxBxDxCxegedabagacad
 
-set -x EDITOR nvim
+set -x EDITOR vim
 set -x GPG_TTY (tty)
 set -x TERM xterm-256color
 
 set -x HOMEBREW_NO_AUTO_UPDATE 1
+set -x FZF_DEFAULT_COMMAND 'rg --files --ignore-vcs --hidden'
 
 # Set up paths
 set -x GOBIN ~/go/bin
@@ -38,7 +39,7 @@ abbr -a ls 'eza --icons'
 abbr -a l 'ls -al'
 abbr -a ln 'ln -v'
 abbr -a mkdir 'mkdir -p'
-abbr -a v nvim
+abbr -a v vim
 abbr -a cd z
 abbr -a c z
 abbr -a ci zi
