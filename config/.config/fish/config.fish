@@ -47,6 +47,7 @@ abbr -a t tmux
 abbr -a ... 'z ../..'
 abbr -a we 'watchexec --timings'
 
+# Notes
 abbr -a todo 'vim ~/wiki/personal/todo/(date +"%Y-%m").jnl'
 abbr -a diary 'vim ~/wiki/personal/diary.md'
 abbr -a notes 'zk edit'
@@ -87,9 +88,6 @@ abbr -a migrate 'rake db:migrate db:rollback && rake db:migrate'
 
 # Python abbreviation
 abbr -a py-lock-fix 'git checkout --theirs poetry.lock && poetry lock --no-update && git add poetry.lock'
-
-# Pretty print the path
-abbr -a path 'echo $PATH | tr -s ":" "\n"'
 
 # Miscellaneous abbreviations
 abbr -a weather 'curl v2.wttr.in/Armagh'
