@@ -37,9 +37,6 @@ set ttyfast
 set tabstop=2
 set shiftwidth=2
 set expandtab
-set spell
-set spelllang=en_gb
-
 
 " auto reload changed files, helps with running formatters
 set autoread

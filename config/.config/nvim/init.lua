@@ -24,6 +24,7 @@ require("lazy").setup({
     { "neovim/nvim-lspconfig", opts = { inlay_hints = { enabled = false } } },
     { "nvim-lualine/lualine.nvim", opts = { options = { theme = "codedark" } } },
     { "folke/snacks.nvim", opts = { scroll = { enabled = false } } },
+    { "nvim-neo-tree/neo-tree.nvim", opts = { window = { width = 25 } } },
 
     -- additional plugins
     {
@@ -58,8 +59,6 @@ require("lazy").setup({
 })
 
 vim.g.snacks_animate = false
-vim.opt.spell = true
-vim.opt.spelllang = "en_gb"
 
 local opt = vim.opt
 opt.wrap = true

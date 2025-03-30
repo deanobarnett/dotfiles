@@ -8,7 +8,7 @@ fish_vi_key_bindings
 set -x CLICOLOR 1
 set -x LSCOLORS ExFxBxDxCxegedabagacad
 
-set -x EDITOR vim
+set -x EDITOR nvim
 set -x GPG_TTY (tty)
 set -x TERM xterm-256color
 
@@ -39,7 +39,7 @@ abbr -a ls 'eza --icons'
 abbr -a l 'ls -al'
 abbr -a ln 'ln -v'
 abbr -a mkdir 'mkdir -p'
-abbr -a v vim
+abbr -a v nvim
 abbr -a cd z
 abbr -a c z
 abbr -a ci zi
@@ -50,7 +50,6 @@ abbr -a we 'watchexec --timings'
 abbr -a todo 'vim ~/wiki/personal/todo/(date +"%Y-%m").jnl'
 abbr -a diary 'vim ~/wiki/personal/diary.md'
 abbr -a notes 'zk edit'
-abbr -a work 'ZK_NOTEBOOK_DIR=~/wiki/work zk edit'
 
 # Docker abbreviations
 abbr -a dc docker-compose
