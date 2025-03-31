@@ -1,3 +1,4 @@
+window-decoration = none
 font-family = "0xProto Nerd Font"
 font-size = 16
 initial-command = /opt/homebrew/bin/fish
