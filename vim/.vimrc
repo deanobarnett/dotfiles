@@ -57,10 +57,8 @@ set statusline +=%2*/%L%*               "total lines
 set statusline +=%1*%4v\ %*             "virtual column number
 
 let mapleader = " "
-
 map <leader>v :vsplit<cr>
 map <leader><space> :FZF .<cr>
-map <leader>e :e .<cr>
 map <leader>y "*y
 map <leader>p "*p
 
@@ -77,47 +75,3 @@ map! <c-q> <esc>:q!<cr>
 au BufRead,BufNewFile *.jnl set filetype=jnl
 au BufRead,BufNewFile *.klog,*.klg set filetype=klog
 au BufRead,BufNewFile *.md,*.markdown set filetype=md
-
-" colemak navigation
-" noremap m h
-" noremap n j
-" noremap e k
-" noremap i l
-" noremap h e
-" noremap j m
-" noremap k n
-" noremap l i
-
-" Map Colemak keys
-" noremap d g
-" noremap e gk
-" noremap f e
-" noremap g t
-" noremap i l
-" noremap j y
-" noremap k n
-" noremap l u
-" noremap n gj
-" noremap o p
-" noremap p r
-" noremap r s
-" noremap s d
-" noremap t f
-" noremap u i
-" noremap y o
-" noremap D G
-" noremap E K
-" noremap F E
-" noremap G T
-" noremap I L
-" noremap J Y
-" noremap K N
-" noremap L U
-" noremap N J
-" noremap O P
-" noremap P R
-" noremap R S
-" noremap S D
-" noremap T F
-" noremap U I
-" noremap Y O
